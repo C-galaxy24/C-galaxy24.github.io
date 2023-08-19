@@ -1,0 +1,137 @@
+<!--
+ * @Author: your name
+ * @Date: 2023-0816-14 13:39:56
+ * @LastEditTime: 2023-08-19 10:10:49
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \Happy Birthday\index.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>浪漫海洋梦幻生日相册</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/style0.css" />
+  </head>
+
+  <body>
+    <!-- 荧光S -->
+    <div class="container">
+      <!-- 打字 -->
+      <div class="typing">
+        <!-- 字幕 -->
+        <h2 class="header-sub-title" id="word"></h2>
+        <h2 class="header-sub-title blink">|</h2>
+      </div>
+      <audio controls autoplay><source src="mp3/3.mp3" /></audio>
+      <!-- 相册 -->
+      <div class="box">
+        <ul class="minbox">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <ol class="maxbox">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ol>
+      </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/TweenMax.min.js"></script>
+    <script src="js/index.js"></script>
+
+    <script>
+      /* 兼容H5 手机端 */
+      if (
+        navigator.userAgent.match(
+          /(phone|pod|iPhone|iPod|ios|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i
+        )
+      ) {
+        var box = document.querySelectorAll(".box")[0];
+        console.log(box, "移动端");
+        box.style.left = "42%";
+      }
+      // --------------------打印字 S--------------------------
+      const words = [
+        "❤ ❤ 俏佳17岁~ 生日快乐",
+        "❤ 生日快乐，愿所有的美好和期待都能如约而至。",
+        "❤ 愿所行皆坦途所遇皆温暖所念皆如愿未来皆可期多喜乐长安宁。",
+        "❤ 愿你的生日充满无穷的快乐，愿你今天的回忆温馨，愿你所有的梦想甜蜜，愿你这一年称心如意！生日快乐！ ",
+        "❤ 我愿你许下的愿望能够实现！愿你你能够做最好的自己，相信自己！爱自己！",
+        "❤ 天赐：愿你像风，像雨，像阳光！",
+        "❤ 天赐：万事如意，祝你快乐，不止生日！",
+        "❤ 猜一猜下一个是不是你最想收到他的",
+        "❤ 博文：愿你所愿成真！愿你所愿无悔！",
+        "❤ 上一个不是！那下一个呢！",
+        "❤ 豪杰：人生天地间，若白驹过隙，忽然而已。祝李俏佳生日快乐！",
+      ];
+      let PPP = 0;
+      let timer;
+      // speed in ms
+      let deleteDelay = 3000;
+      let typeSpeed = 100;
+      let delSpeed = 50;
+      /* 开始编写文字 */
+      function typingEffect() {
+        console.log(i, "iiii");
+        console.log(words[PPP], "words[i]");
+        let word = words[PPP].split("");
+        var loopTyping = function () {
+          if (word.length > 0) {
+            document.getElementById("word").innerHTML += word.shift();
+          } else {
+            delay(function () {
+              deletingEffect(); // do stuff
+            }, deleteDelay); // end delay
+            // deletingEffect();
+            return false;
+          }
+          timer = setTimeout(loopTyping, typeSpeed);
+        };
+        loopTyping();
+      }
+
+      function deletingEffect() {
+        let word = words[PPP].split("");
+        var loopDeleting = function () {
+          if (word.length > 0) {
+            word.pop();
+            document.getElementById("word").innerHTML = word.join("");
+          } else {
+            if (words.length > PPP + 1) {
+              PPP++;
+            } else {
+              PPP = 0;
+            }
+            typingEffect();
+            return false;
+          }
+
+          timer = setTimeout(loopDeleting, delSpeed);
+        };
+
+        loopDeleting();
+      }
+
+      var delay = (function () {
+        var timer = 0;
+        return function (callback, ms) {
+          clearTimeout(timer);
+          timer = setTimeout(callback, ms);
+        };
+      })();
+      typingEffect();
+      // --------------------打印字 E--------------------------
+    </script>
+  </body>
+</html>
